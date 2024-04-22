@@ -1,14 +1,18 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Layout, RequireAuth }from 'src/routes/layout/Layout'
 import './App.css'
 
 function App() {
 
   return (
-    <>
-      
-      <p >
-        Success
-      </p>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          {/* <Route element={<Home />} path="/" exact />
+          <Route element={<Products />} path="/products" /> */}
+        </Route>
+      </Routes>
+    </Router>
   )
 }
 
