@@ -1,5 +1,5 @@
 import express from "express"
-// import connectDB from "./dbConnection"
+import cookieParser from "cookie-parser"
 import dotenv from "dotenv"
 
 import authRoute from "./routes/auth.route.js"
@@ -13,10 +13,11 @@ dotenv.config()
 //initialize the port-Enter a port
 const port = process.env.PORT
 
-/*db connection */
-
 // Parse JSON bodies
-app.use(express.json());
+app.use(express.json())
+
+//Cookie Parser
+app.use(cookieParser())
 
 // API Routes
 app.use("/api/auth", authRoute)
