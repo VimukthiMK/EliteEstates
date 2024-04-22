@@ -11,6 +11,12 @@ function App() {
           {/* <Route element={<Home />} path="/" exact />
           <Route element={<Products />} path="/products" /> */}
         </Route>
+
+        {/* Protected */}
+        <Route path="/" element={<RequireAuth />}>
+          {/* <Route element={<Home />} path="/" exact />
+          <Route element={<Products />} path="/products" /> */}
+        </Route>
       </Routes>
     </Router>
   )
