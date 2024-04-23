@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Layout, RequireAuth }from 'src/routes/layout/Layout'
+import Register from 'src/routes/register/Register'
 import './App.css'
 
 function App() {
@@ -8,8 +9,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Layout />}>
-          {/* <Route element={<Home />} path="/" exact />
-          <Route element={<Products />} path="/products" /> */}
+          <Route path = "/register" element = {<Register />} /> 
         </Route>
 
         {/* Protected */}

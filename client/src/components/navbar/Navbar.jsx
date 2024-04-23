@@ -1,7 +1,7 @@
 import { useState } from "react"
 import MenuIcon from "src/assets/icon/burger-menu-icon.svg"
 import AppLogo from "src/assets/logo/logo.svg"
-import "./navbar.scss"
+import "src/components/navbar/navbar.scss"
 
 const Navbar = ()=>{
   const [open, setOpen] = useState(false)
