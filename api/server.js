@@ -1,4 +1,5 @@
 import express from "express"
+import cors from "cors"
 import cookieParser from "cookie-parser"
 import dotenv from "dotenv"
 
@@ -18,6 +19,9 @@ app.use(express.json())
 
 //Cookie Parser
 app.use(cookieParser())
+
+// CORS Origin Middleware
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 
 // API Routes
 app.use("/api/auth", authRoute)
