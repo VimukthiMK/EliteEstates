@@ -31,7 +31,7 @@ function Register() {
 
             // Delay navigation to login page by 3 seconds
             setTimeout(() => {
-                navigate("/login");
+                navigate("/login")
             }, 3000);
         } catch (err) {
             setMessage(err.response.data.message)
