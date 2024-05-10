@@ -1,4 +1,5 @@
-import { Link} from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import apiRequest from 'src/lib/apiReq'
 import { useContext } from "react"
 import { AuthContext } from "src/context/AuthContext"
 
@@ -8,6 +9,17 @@ import NoAvatar from "src/assets/icon/no-avatar.svg"
 function ProfilePage() {
     const { updateUser, currentUser } = useContext(AuthContext)
 
+    const navigate = useNavigate()
+
+    const handleLogout = async () => {
+        try {
+            await apiRequest.post("/auth/logout")
+            updateUser(null)
+            navigate("/")
+        } catch (err) {
+            console.log(err)
+        }
+    }
     return (
         <div className="profilePage">
             <div className="details">
@@ -29,7 +41,7 @@ function ProfilePage() {
                         <span>
                             E-mail: <b>{currentUser.email}</b>
                         </span>
-                        <button>Logout</button>
+                        <button onClick={handleLogout}>Logout</button>
                     </div>
                 </div>
             </div>
