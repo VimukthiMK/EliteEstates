@@ -13,9 +13,12 @@ function ProfilePage() {
 
     const handleLogout = async () => {
         try {
-            await apiRequest.post("/auth/logout")
-            updateUser(null)
-            navigate("/")
+            const confirmed = window.confirm("Are you sure you want to logout?")
+            if (confirmed) {
+                await apiRequest.post("/auth/logout")
+                updateUser(null)
+                navigate("/")
+            }
         } catch (err) {
             console.log(err)
         }

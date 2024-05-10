@@ -6,6 +6,7 @@ import Register from 'src/routes/register/Register'
 import Login from 'src/routes/login/login'
 import Home from 'src/routes/homePage/HomePage'
 import Profile from 'src/routes/profilePage/ProfilePage'
+import ProfileUpdate from 'src/routes/profileUpdatePage/ProfileUpdate'
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         {/* Protected */}
         <Route path="/" element={<RequireAuth />}>
         <Route path = "/profile" element = {<Profile />} />  
+        <Route path = "/profile/update" element = {<ProfileUpdate />} /> 
         </Route>
       </Routes>
     </Router>
