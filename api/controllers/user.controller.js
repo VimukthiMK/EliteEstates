@@ -26,6 +26,7 @@ export const getUser = async (req, res) => {
   }
 }
 
+// Update User
 export const updateUser = async (req, res) => {
   const id = req.params.id
   const tokenUserId = req.userId // jwt cookie body
@@ -59,6 +60,7 @@ export const updateUser = async (req, res) => {
   }
 }
 
+//Delete User
 export const deleteUser = async (req, res) => {
   const id = req.params.id
   const tokenUserId = req.userId

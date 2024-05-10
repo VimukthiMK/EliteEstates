@@ -5,7 +5,7 @@ import dotenv from "dotenv"
 
 import authRoute from "./routes/auth.route.js"
 import postRoute from "./routes/post.route.js"
-import postRoute from "./routes/user.route.js"
+import userRoute from "./routes/user.route.js"
 
 // Create express app
 const app = express()
