@@ -1,6 +1,7 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import "src/routes/login/login.scss"
 import { Link, useNavigate } from "react-router-dom"
+import { AuthContext } from "src/context/AuthContext";
 
 import apiRequest from "src/lib/apiReq"
 import AuthBanner from "src/assets/images/auth-banner.jpg"
@@ -9,6 +10,7 @@ function Login() {
     const [message, setMessage] = useState("")
     const [isLoading, setIsLoading] = useState(false)
 
+    const {updateUser} = useContext(AuthContext)
 
     const navigate = useNavigate()
 
@@ -26,11 +28,10 @@ function Login() {
                 username,
                 password,
             })
-
-            // Delay navigation to Home page by 1 second
-            setTimeout(() => {
-                navigate("/")
-            }, 1000)
+            // set logged user as current user
+            await updateUser(res.data)
+            // Navigate to Homepage
+            navigate("/")   
 
         } catch (err) {
             setMessage(err.response.data.message)

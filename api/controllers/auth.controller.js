@@ -35,18 +35,18 @@ export const login = async (req, res) => {
       where: { username },
     })
 
-    if (!user) return res.status(400).json({ message: "Invalid Credentials!" })
+    if (!user) return res.status(400).json({ message: "Invalid Username or Password!" })
 
     // CHECK IF THE PASSWORD IS CORRECT
 
     const isPasswordValid = await bcrypt.compare(password, user.password)
 
     if (!isPasswordValid)
-      return res.status(400).json({ message: "Invalid Credentials!" })
+      return res.status(400).json({ message: "Invalid Username or Password!" })
 
     // Generate Cookie token and Send to user
 
-    const age = 1000 * 60 * 60 * 12  //Session Expiration - 12 Hours
+    const age = 1000 * 60 * 60 * 24 * 7  //Session Expiration - 7 days
 
     const token = jwt.sign(
       {
