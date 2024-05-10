@@ -5,6 +5,7 @@ import { Layout, RequireAuth }from 'src/routes/layout/Layout'
 import Register from 'src/routes/register/Register'
 import Login from 'src/routes/login/login'
 import Home from 'src/routes/homePage/HomePage'
+import Profile from 'src/routes/profilePage/ProfilePage'
 
 
 function App() {
@@ -20,8 +21,7 @@ function App() {
 
         {/* Protected */}
         <Route path="/" element={<RequireAuth />}>
-          {/* <Route element={<Home />} path="/" exact />
-          <Route element={<Products />} path="/products" /> */}
+        <Route path = "/profile" element = {<Profile />} />  
         </Route>
       </Routes>
     </Router>
