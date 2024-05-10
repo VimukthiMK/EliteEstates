@@ -1,16 +1,45 @@
-import { useContext} from "react"
+import { useContext, useState } from "react"
 import { AuthContext } from "src/context/AuthContext"
+import apiRequest from "src/lib/apiReq"
+import { useNavigate } from "react-router-dom"
 
 import "src/routes/profileUpdatePage/profileUpdate.scss"
 import NoAvatar from "src/assets/icon/no-avatar.svg"
 
 const ProfileUpdate = () => {
-  const { currentUser } = useContext(AuthContext)
+  const { currentUser, updateUser } = useContext(AuthContext)
+  const [error, setError] = useState("")
+  const [avatar, setAvatar] = useState([]);
+
+  const navigate = useNavigate()
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const formData = new FormData(e.target)
+
+    const { username, email, password } = Object.fromEntries(formData)
+
+    try {
+      const res = await apiRequest.put(`/users/${currentUser.id}`, {
+        username,
+        email,
+        password,
+        avatar:avatar[0]
+      })
+      // Update the current user data
+      updateUser(res.data)
+      // Navigate to Profile
+      navigate("/profile")
+    } catch (err) {
+      console.log(err)
+      setError(err.response.data.message)
+    }
+  }
 
   return (
     <div className="profileUpdatePage">
       <div className="formContainer">
-        <form onSubmit>
+        <form onSubmit={handleSubmit}>
           <h1>Update Profile</h1>
           <div className="item">
             <label htmlFor="username">Username</label>
@@ -35,10 +64,11 @@ const ProfileUpdate = () => {
             <input id="password" name="password" type="password" />
           </div>
           <button>Update</button>
+          {error && <span>error</span>}
         </form>
       </div>
       <div className="sideContainer">
-        <img src={currentUser.avatar || NoAvatar} alt="" className="avatar" />
+        <img src={avatar[0] || currentUser.avatar || NoAvatar} alt="" className="avatar" />
       </div>
     </div>
   )
