@@ -3,6 +3,8 @@ import { useState } from "react"
 import apiRequest from "src/lib/apiReq"
 import "src/routes/register/register.scss"
 import AuthBanner from "src/assets/images/auth-banner.jpg"
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Register() {
     const [message, setMessage] = useState("")
@@ -26,13 +28,22 @@ function Register() {
                 email,
                 password,
             })
-
-            setMessage(res.data.message)
+            //  Toast notification upon successful register
+            toast.success('Registered Successfully', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
 
             // Delay navigation to login page by 3 seconds
             setTimeout(() => {
                 navigate("/login")
-            }, 3000)
+            }, 1000)
         } catch (err) {
             setMessage(err.response.data.message)
         } finally {
