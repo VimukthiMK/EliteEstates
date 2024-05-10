@@ -43,7 +43,11 @@
             }
 
             span {
+                padding: 20px;
+                background: rgba(219, 219, 219,0.5);
+                border-radius: 5px;
                 color: rgba(255, 0, 0, 0.591);
+                font-weight: bold;
             }
 
             a {

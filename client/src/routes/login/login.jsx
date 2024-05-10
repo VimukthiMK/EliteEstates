@@ -27,10 +27,10 @@ function Login() {
                 password,
             })
 
-            // Delay navigation to Home page by 3 seconds
+            // Delay navigation to Home page by 1 second
             setTimeout(() => {
                 navigate("/")
-            }, 3000)
+            }, 1000)
 
         } catch (err) {
             setMessage(err.response.data.message)
