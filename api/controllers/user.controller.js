@@ -4,7 +4,15 @@ import bcrypt from "bcrypt"
 // Get all users
 export const getUsers = async (req, res) => {
   try {
-    const users = await prisma.user.findMany()
+    const users = await prisma.user.findMany({
+      select: {
+        id: true,
+        email: true,
+        username: true,
+        avatar: true,
+        createdAt: true,
+      },
+    })
     res.status(200).json(users)
   } catch (err) {
     console.log(err)
@@ -17,6 +25,13 @@ export const getUser = async (req, res) => {
   const id = req.params.id 
   try {
     const user = await prisma.user.findUnique({
+      select: { 
+        id: true,
+        email: true,
+        username: true,
+        avatar: true,
+        createdAt: true,
+      },
       where: { id },
     })
     res.status(200).json(user)

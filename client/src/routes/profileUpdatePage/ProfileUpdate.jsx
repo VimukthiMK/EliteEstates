@@ -3,8 +3,10 @@ import { AuthContext } from "src/context/AuthContext"
 import apiRequest from "src/lib/apiReq"
 import { useNavigate } from "react-router-dom"
 import NoAvatar from "src/assets/icon/no-avatar.svg"
+
 import { storage } from "src/config/FirebaseConfig"
 import { getDownloadURL, ref as storageRef, uploadBytes } from "firebase/storage"
+
 import 'src/routes/profileUpdatePage/profileUpdate.scss'
 
 const ProfileUpdate = () => {
@@ -114,7 +116,9 @@ const ProfileUpdate = () => {
       </div>
       <div className="sideContainer">
         {/* Display the current avatar or a placeholder */}
+        <div className="avatarContainer">
         <img src={currentUser.avatar || NoAvatar} alt="Current Avatar" id="avatarPreview" className="avatar" />
+        </div>
       </div>
     </div>
   )
