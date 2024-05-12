@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate} from "react-router-dom"
 import apiRequest from 'src/lib/apiReq'
 import { useContext } from "react"
 import { AuthContext } from "src/context/AuthContext"
@@ -27,6 +27,8 @@ function ProfilePage() {
         <div className="profilePage">
             <div className="details">
                 <div className="wrapper">
+
+                    {/* User Info */}
                     <div className="title">
                         <h1>User Information</h1>
                         <Link to="/profile/update">
@@ -46,6 +48,15 @@ function ProfilePage() {
                         </span>
                         <button onClick={handleLogout}>Logout</button>
                     </div>
+
+                    {/* Posts */}
+                    <div className="title">
+                        <h1>My List</h1>
+                        <Link to="/add">
+                            <button>Create New Post</button>
+                        </Link>
+                    </div>
+                    {/* Rest */}
                 </div>
             </div>
 
