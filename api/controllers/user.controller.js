@@ -15,6 +15,7 @@ export const getUsers = async (req, res) => {
     })
     res.status(200).json(users)
   } catch (err) {
+    console.log(err)
     res.status(500).json({ message: "Failed to get users!" })
   }
 }
@@ -35,6 +36,7 @@ export const getUser = async (req, res) => {
     })
     res.status(200).json(user)
   } catch (err) {
+    console.log(err)
     res.status(500).json({ message: "Failed to get user!" })
   }
 }
@@ -68,6 +70,7 @@ export const updateUser = async (req, res) => {
 
     res.status(200).json(rest)
   } catch (err) {
+    console.log(err)
     res.status(500).json({ message: "Failed to update users!" })
   }
 }
@@ -87,6 +90,7 @@ export const deleteUser = async (req, res) => {
     })
     res.status(200).json({ message: "User deleted" })
   } catch (err) {
+    console.log(err)
     res.status(500).json({ message: "Failed to delete users!" })
   }
 }
