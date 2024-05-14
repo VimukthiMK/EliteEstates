@@ -54,7 +54,7 @@ export const addPost = async (req, res) => {
         },
       },
     })
-    res.status(200).json(newPost)
+    res.status(200).json({newPost, message:"Post created Successfully"})
   } catch (err) {
     console.log(err)
     res.status(500).json({ message: "Failed to create post" })
