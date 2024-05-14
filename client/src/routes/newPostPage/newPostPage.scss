@@ -1,77 +1,123 @@
+@import "src/responsive.scss";
 .newPostPage {
-    height: 100%;
-    display: flex;
-  
-    .formContainer {
-      flex: 3;
-      overflow: scroll;
-  
-      .wrapper {
-        margin: 30px 50px 100px 0px;
-  
-        form {
+  height: 100%;
+  display: flex;
+
+  @include sm {
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+  .formContainer {
+    flex: 3;
+    overflow: auto;
+
+    .wrapper {
+      margin: 30px 50px 100px 0px;
+
+      form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        @include md{
+          gap: 50px;
+          }
+
+        .item {
+          width: calc(30% - 10px);
           display: flex;
-          justify-content: space-between;
-          flex-wrap: wrap;
-          gap: 20px;
-  
-          .item {
-            width: 30%;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-  
-            label {
-            }
-  
-            input {
-              padding: 20px;
-              border-radius: 5px;
-              border: 1px solid gray;
-            }
-  
-            select {
-              padding: 19px;
-            }
-  
-            &.description {
-              width: 100%;
-              height: 320px;
-  
-              .quill > .ql-container > .ql-editor{
-                height: 200px;
-                font-size: 16px;
-              }
-            }
-          }
-          .sendButton {
-            width: 30%;
+          flex-direction: column;
+          gap: 5px;
+          
+          @include sm {
+           width: 100%;
+          
+        }
+
+
+          input,
+          select {
+            padding: 20px;
             border-radius: 5px;
-            border: none;
-            background-color: teal;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
+            border: 1px solid gray;
+            width: 100%;
+            
           }
+
+          &.description {
+            width: 92%;
+            height: 320px;
+
+            .quill > .ql-container > .ql-editor {
+              height: 200px;
+              font-size: 16px;
+            }
+          }
+        }
+
+        .sendButton {
+          width: calc(30% - 10px);
+          padding: 20px;
+          border-radius: 5px;
+          border: none;
+          background-color: teal;
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+
+          &:disabled {
+            background-color: #BED9D8;
+            cursor: not-allowed;
+        }
         }
       }
     }
+  }
+
+  .sideContainer {
+    flex: 2;
+    background-color: #fcf5f3;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    padding-top: 20%;
+    padding-bottom: 10%;
+
+    @include sm {
+      width: 100%;
+      position: relative;
+      }
   
-    .sideContainer {
-      flex: 2;
-      background-color: #fcf5f3;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      align-items: center;
-      justify-content: center;
+    .imageContainer {
+      position: relative;
+      display: flex; /* Added */
+    flex-direction: column; /* Added */
+    align-items: center; /* Added */
+    justify-content: center; 
   
-      img {
-        width: 50%;
-        height: 180px;
+      .previewImage {
+        width: 1  00px;
+        height: 100px;
         object-fit: cover;
         border-radius: 5px;
+      }
+  
+      .removeButton {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        padding: 5px 10px;
+        border: none;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border-radius: 5px; 
+        cursor: pointer;
+        z-index: 1;
       }
     }
   }
   
+}
