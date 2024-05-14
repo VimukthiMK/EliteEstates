@@ -1,4 +1,5 @@
 @import "src/responsive.scss";
+
 .newPostPage {
   height: 100%;
   display: flex;
@@ -6,7 +7,7 @@
   @include sm {
     flex-direction: column;
     justify-content: space-between;
-}
+  }
 
   .formContainer {
     flex: 3;
@@ -15,24 +16,30 @@
     .wrapper {
       margin: 30px 50px 100px 0px;
 
+      @include sm {
+        margin-left: 10%;
+        align-items: center;
+      }
+
       form {
         display: flex;
         flex-wrap: wrap;
         gap: 20px;
-        @include md{
-          gap: 50px;
-          }
 
         .item {
           width: calc(30% - 10px);
           display: flex;
           flex-direction: column;
           gap: 5px;
-          
+
           @include sm {
-           width: 100%;
-          
-        }
+            width: 100%;
+
+          }
+
+          @include md {
+            width: 90%;
+          }
 
 
           input,
@@ -41,16 +48,34 @@
             border-radius: 5px;
             border: 1px solid gray;
             width: 100%;
-            
+
           }
 
           &.description {
             width: 92%;
             height: 320px;
 
-            .quill > .ql-container > .ql-editor {
+            @include sm {
+              width: 100%;
+            }
+
+            @include md {
+              width: 90%;
+            }
+
+            .quill>.ql-container>.ql-editor {
               height: 200px;
               font-size: 16px;
+
+              @include md {
+                height: 150px;
+                font-size: 14px;
+              }
+
+              @include sm {
+                height: 120px;
+                font-size: 12px;
+              }
             }
           }
         }
@@ -65,10 +90,18 @@
           font-weight: bold;
           cursor: pointer;
 
+          @include sm {
+            width: 100%;
+          }
+
+          @include md {
+            width: 90%;
+          }
+
           &:disabled {
             background-color: #BED9D8;
             cursor: not-allowed;
-        }
+          }
         }
       }
     }
@@ -87,24 +120,23 @@
     padding-bottom: 10%;
 
     @include sm {
-      width: 100%;
-      position: relative;
-      }
-  
+      display: none;
+    }
+
     .imageContainer {
       position: relative;
-      display: flex; /* Added */
-    flex-direction: column; /* Added */
-    align-items: center; /* Added */
-    justify-content: center; 
-  
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
       .previewImage {
-        width: 1  00px;
+        width: 1 00px;
         height: 100px;
         object-fit: cover;
         border-radius: 5px;
       }
-  
+
       .removeButton {
         position: absolute;
         top: 5px;
@@ -113,11 +145,11 @@
         border: none;
         background-color: rgba(0, 0, 0, 0.5);
         color: white;
-        border-radius: 5px; 
+        border-radius: 5px;
         cursor: pointer;
         z-index: 1;
       }
     }
   }
-  
+
 }
