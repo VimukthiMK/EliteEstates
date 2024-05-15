@@ -1,6 +1,6 @@
-import { useState } from "react"
+import { useState , useEffect } from "react"
 import apiRequest from "src/lib/apiReq"
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 
 import "src/routes/newPostPage/newPostPage.scss"
 import ReactQuill from "react-quill" // For styling the text
@@ -26,6 +26,10 @@ function NewPostPage() {
   // Image selection
   const handleImageSelection = (e) => {
     const files = Array.from(e.target.files)
+    if (files.length > 4) {
+      setError("You can only upload a maximum of 4 images.")
+      return
+    }
     setImages((prevImages) => [...prevImages, ...files])
   }
 
@@ -41,6 +45,11 @@ function NewPostPage() {
 
     if (images.length === 0) {
       setError("Please upload at least one image.")
+      setLoading(false)
+      return
+    }
+    if (images.length > 4) {
+      setError("You can only upload a maximum of 4 images.")
       setLoading(false)
       return
     }
@@ -102,8 +111,8 @@ function NewPostPage() {
       e.target.reset()
 
       // Navigate 
-      navigate("/" + res.data.id)
-    } catch (err) {
+      navigate(`/post?id=${res.data.newPost.id}`)
+    } catch (err) { 
       setError("Error submitting the form")
     } finally {
       setLoading(false) // Stop loading
@@ -228,7 +237,7 @@ function NewPostPage() {
             </button>
 
             {/* error */}
-            {error && <span>{error}</span>}
+            {error && <span className="error">{error}</span>}
           </form>
         </div>
       </div>
@@ -240,7 +249,7 @@ function NewPostPage() {
               <img
                 src={URL.createObjectURL(image)}
                 alt={`Selected ${index}`}
-                style={{ width: "100px", height: "100px", objectFit: "cover" }}
+                style={{ width: "200px", height: "200px", objectFit: "cover" }}
               />
               {/* For Removing Images */}
               <button

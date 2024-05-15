@@ -10,6 +10,7 @@ import ProfileUpdate from 'src/routes/profileUpdatePage/ProfileUpdate'
 import NewPostPage from 'src/routes/newPostPage/NewPostPage'
 
 
+
 function App() {
 
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Home />} />
+          <Route path="/post" element={<SinglePostPage/>}/>
         </Route>
 
         {/* Protected */}
