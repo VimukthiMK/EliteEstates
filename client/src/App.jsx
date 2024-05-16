@@ -9,6 +9,7 @@ import Profile from 'src/routes/profilePage/ProfilePage'
 import ProfileUpdate from 'src/routes/profileUpdatePage/ProfileUpdate'
 import NewPostPage from 'src/routes/newPostPage/NewPostPage'
 import SinglePostPage from 'src/routes/singlePostPage/SinglePostPage'
+import PostListPage from 'src/routes/postListPage/PostListPage'
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Home />} />
           <Route path="/post" element={<SinglePostPage/>}/>
+          <Route path="/list" element={<PostListPage/>}/>
         </Route>
 
         {/* Protected */}
