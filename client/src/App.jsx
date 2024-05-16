@@ -8,7 +8,7 @@ import Home from 'src/routes/homePage/HomePage'
 import Profile from 'src/routes/profilePage/ProfilePage'
 import ProfileUpdate from 'src/routes/profileUpdatePage/ProfileUpdate'
 import NewPostPage from 'src/routes/newPostPage/NewPostPage'
-
+import SinglePostPage from 'src/routes/singlePostPage/SinglePostPage'
 
 
 function App() {

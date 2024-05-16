@@ -1,6 +1,9 @@
 import { useState } from "react"
 import "src/components/slider/slider.scss"
 
+import { FaAngleDoubleRight, FaAngleDoubleLeft ,FaTimes} from "react-icons/fa";
+
+
 const Slider = ({ images }) =>{
   const [imageIndex, setImageIndex] = useState(null)
 
@@ -25,16 +28,16 @@ const Slider = ({ images }) =>{
       {imageIndex !== null && (
         <div className="fullSlider">
           <div className="arrow" onClick={() => changeSlide("left")}>
-            {/* <img src="/arrow.png" alt="" /> */}
+          <FaAngleDoubleLeft style={{ color: 'white', fontSize: '30px' }} />
           </div>
           <div className="imgContainer">
             <img src={images[imageIndex]} alt="" />
           </div>
           <div className="arrow" onClick={() => changeSlide("right")}>
-            {/* <img src="/arrow.png" className="right" alt="" /> */}
+          <FaAngleDoubleRight style={{ color: 'white', fontSize: '30px' }}/>
           </div>
           <div className="close" onClick={() => setImageIndex(null)}>
-            X
+          <FaTimes style={{ color: 'white', fontSize: '40px' }} />
           </div>
         </div>
       )}

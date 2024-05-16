@@ -8,6 +8,8 @@ import { useLocation } from "react-router-dom"
 import queryString from 'query-string'
 import apiRequest from "src/lib/apiReq"
 
+import { FaPaw,FaTools,FaUtensils, FaBus,FaSchool,FaBath , FaBed ,FaMoneyCheckAlt, FaCompress ,FaCommentDots} from "react-icons/fa";
+
 const SinglePostPage = () => {
   const { currentUser } = useContext(AuthContext)
   const [post, setPost] = useState(null)
@@ -82,6 +84,7 @@ const SinglePostPage = () => {
           <p className="title">General</p>
           <div className="listVertical">
             <div className="feature">
+            <FaTools style={{ color: 'green', fontSize: '25px' }} />
               <div className="featureText">
                 <span>Utilities</span>
                 {post.postDetail.utilities === "owner" ? (
@@ -92,7 +95,7 @@ const SinglePostPage = () => {
               </div>
             </div>
             <div className="feature">
-              <img src={post.user.avatar} alt="" />
+            <FaPaw style={{ color: 'green', fontSize: '25px' }} />
               <div className="featureText">
                 <span>Pet Policy</span>
                 {post.postDetail.pet === "allowed" ? (
@@ -103,6 +106,7 @@ const SinglePostPage = () => {
               </div>
             </div>
             <div className="feature">
+            <FaMoneyCheckAlt style={{ color: 'green', fontSize: '25px' }} />
               <div className="featureText">
                 <span>Income Policy</span>
                 <p>{post.postDetail.income}</p>
@@ -112,18 +116,22 @@ const SinglePostPage = () => {
           <p className="title">Sizes</p>
           <div className="sizes">
             <div className="size">
+            <FaCompress style={{ color: 'green', fontSize: '25px' }}/>
               <span>{post.postDetail.size} sqft</span>
             </div>
             <div className="size">
+            <FaBed style={{ color: 'green', fontSize: '25px' }}/>
               <span>{post.bedroom} beds</span>
             </div>
             <div className="size">
+            <FaBath style={{ color: 'green', fontSize: '25px' }}/>
               <span>{post.bathroom} bathroom</span>
             </div>
           </div>
           <p className="title">Nearby Places</p>
           <div className="listHorizontal">
             <div className="feature">
+            <FaSchool style={{ color: 'green', fontSize: '25px' }} />
               <div className="featureText">
                 <span>School</span>
                 <p>
@@ -135,12 +143,14 @@ const SinglePostPage = () => {
               </div>
             </div>
             <div className="feature">
+            <FaBus style={{ color: 'green', fontSize: '25px' }}/>
               <div className="featureText">
                 <span>Bus Stop</span>
                 <p>{post.postDetail.bus}m away</p>
               </div>
             </div>
             <div className="feature">
+            <FaUtensils style={{ color: 'green', fontSize: '25px' }}/>
               <div className="featureText">
                 <span>Restaurant</span>
                 <p>{post.postDetail.restaurant}m away</p>
@@ -152,7 +162,7 @@ const SinglePostPage = () => {
             <Map items={[post]} />
           </div>
           <div className="buttons">
-            <button>Send a Message</button>
+            <button><FaCommentDots style={{ color: 'green', fontSize: '25px' }}/>Send a Message</button>
             <button></button>
           </div>
         </div>
