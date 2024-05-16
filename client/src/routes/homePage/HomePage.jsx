@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import SearchBar from "src/components/searchBar/SearchBar"
 import "src/routes/homePage/homePage.scss"
 
 import HomeBanner1 from "../../assets/images/home-banner-1.jpg"
@@ -32,6 +33,8 @@ const HomePage = () => {
                         With that knowledge, you can then explore real estate websites or connect with a realtor
                         to search for properties that align perfectly with your vision.
                     </p>
+                    {/* Search Bar */}
+                    <SearchBar />
                     <div className="boxes">
                         <div className="box">
                             <h1>5+</h1>
