@@ -3,17 +3,28 @@ import jwt from "jsonwebtoken"
 
 // Get all posts
 export const getPosts = async (req, res) => {
-  const id = req.params.id
-
+  const { type, city, property, bedroom, minPrice, maxPrice } = req.query
   try {
-    const posts = await prisma.post.findMany()
+    const posts = await prisma.post.findMany({
+      where: {
+        city: city || undefined,
+        type: type || undefined,
+        property: property || undefined,
+        bedroom: parseInt(bedroom) || undefined,
+        price: {
+          gte: parseInt(minPrice) || undefined,
+          lte: parseInt(maxPrice) || undefined,
+        },
+      },
+    })
 
     res.status(200).json(posts)
   } catch (err) {
-    console.log(err)
+    console.error(err)
     res.status(500).json({ message: "Failed to get posts" })
   }
 }
+
 
 // Get Single Post
 export const getPost = async (req, res) => {
