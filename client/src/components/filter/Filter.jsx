@@ -26,6 +26,7 @@ function Filter() {
 
   const handleFilter = () => {
     updateQuery(query)
+    setSearchParams(query) // set url parameters
   }
 
   return (
