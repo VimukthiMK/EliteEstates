@@ -21,7 +21,7 @@ const PostListPage = () => {
 
     useEffect(() => {
         updateQuery(query)
-    }, [query, updateQuery])
+    }, [query])
 
     if (loading) {
         return <div>Loading...</div>

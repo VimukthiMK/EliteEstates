@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom"
-import "../../components/card/card.scss"
+import "src/components/card/card.scss"
+
+import { FaMapMarkerAlt, FaBath, FaBed, FaBookmark, FaCommentDots } from "react-icons/fa";
+
 
 function Card({ item }) {
   return (
@@ -12,27 +15,27 @@ function Card({ item }) {
           <Link to={`/post?id=${item.id}`}>{item.title}</Link>
         </h2>
         <p className="address">
-          <img src="/pin.png" alt="" />
+          <FaMapMarkerAlt style={{ color: 'black', fontSize: '20px' }} />
           <span>{item.address}</span>
         </p>
         <p className="price">$ {item.price}</p>
         <div className="bottom">
           <div className="features">
             <div className="feature">
-              <img src="/bed.png" alt="" />
+              <FaBed style={{ color: 'black', fontSize: '20px' }} />
               <span>{item.bedroom} bedroom</span>
             </div>
             <div className="feature">
-              <img src="/bath.png" alt="" />
+              <FaBath style={{ color: 'black', fontSize: '20px' }} />
               <span>{item.bathroom} bathroom</span>
             </div>
           </div>
           <div className="icons">
             <div className="icon">
-              <img src="/save.png" alt="" />
+              <FaBookmark style={{ color: 'black', fontSize: '20px' }} />
             </div>
             <div className="icon">
-              <img src="/chat.png" alt="" />
+              <FaCommentDots style={{ fontSize: '20px' }} />
             </div>
           </div>
         </div>

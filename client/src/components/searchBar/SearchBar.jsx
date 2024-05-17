@@ -2,6 +2,8 @@ import { useState } from "react"
 import "src/components/searchBar/searchBar.scss"
 import { Link } from "react-router-dom"
 
+import { FaSearch,} from "react-icons/fa"
+
 const types = ["buy", "rent"]
 
 function SearchBar() {
@@ -60,7 +62,7 @@ function SearchBar() {
           to={`/list?type=${query.type}&city=${query.city}&minPrice=${query.minPrice}&maxPrice=${query.maxPrice}`}
         >
           <button>
-            <img src="/search.png" alt="" />
+          <FaSearch style={{ color: 'white', fontSize: '30px' }} />
           </button>
         </Link>
       </form>

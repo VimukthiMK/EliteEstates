@@ -1,6 +1,7 @@
 import { useState ,useContext } from "react"
 import "src/components/filter/filter.scss"
 import { useSearchParams } from "react-router-dom"
+import { FaSearch,} from "react-icons/fa";
 
 import { SearchContext } from "src/context/SearchContext"
 
@@ -110,7 +111,7 @@ function Filter() {
           />
         </div>
         <button onClick={handleFilter}>
-          <img src="/search.png" alt="" />
+        <FaSearch style={{ color: 'black', fontSize: '20px' }} />
         </button>
       </div>
     </div>
