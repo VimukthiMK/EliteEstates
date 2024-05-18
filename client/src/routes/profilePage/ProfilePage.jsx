@@ -1,16 +1,35 @@
-import { Link, useNavigate} from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import apiRequest from 'src/lib/apiReq'
-import { useContext } from "react"
+import { useContext,Suspense, useEffect, useState } from "react"
 import { AuthContext } from "src/context/AuthContext"
+import List from 'src/components/list/List'
 
 import "src/routes/profilePage/profilePage.scss"
 import NoAvatar from "src/assets/icon/no-avatar.svg"
 
 function ProfilePage() {
     const { updateUser, currentUser } = useContext(AuthContext)
+    const [userPosts, setUserPosts] = useState([])
+    const [savedPosts, setSavedPosts] = useState([])
 
     const navigate = useNavigate()
 
+    //Fetch user Posts and Saved Posts
+    useEffect(() => {
+        const fetchUserPost = async () => {
+          try {
+            const res = await apiRequest.get('/users/profilePosts')
+            setUserPosts(res.data.userPosts)
+            setSavedPosts(res.data.savedPosts)
+          } catch (error) {
+            console.log(error)
+          }
+        }
+    
+        fetchUserPost()
+      }, [currentUser])
+
+    // Logout
     const handleLogout = async () => {
         try {
             const confirmed = window.confirm("Are you sure you want to logout?")
@@ -27,8 +46,6 @@ function ProfilePage() {
         <div className="profilePage">
             <div className="details">
                 <div className="wrapper">
-
-                    {/* User Info */}
                     <div className="title">
                         <h1>User Information</h1>
                         <Link to="/profile/update">
@@ -49,14 +66,24 @@ function ProfilePage() {
                         <button onClick={handleLogout}>Logout</button>
                     </div>
 
-                    {/* Posts */}
+                    {/* User Posts */}
                     <div className="title">
                         <h1>My List</h1>
                         <Link to="/add">
                             <button>Create New Post</button>
                         </Link>
                     </div>
-                    {/* Rest */}
+                    <Suspense fallback={<p>Loading...</p>}>
+                        <List posts = {userPosts}/>
+                    </Suspense>
+
+                    {/* Saved posts - User */}
+                    <div className="title">
+                        <h1>Saved List</h1>
+                    </div>
+                    <Suspense fallback={<p>Loading...</p>}>
+                        <List posts = {savedPosts}/>
+                    </Suspense>
                 </div>
             </div>
 
