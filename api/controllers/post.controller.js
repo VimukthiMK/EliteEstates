@@ -25,16 +25,14 @@ export const getPosts = async (req, res) => {
   }
 }
 
-
 // Get Single Post
 export const getPost = async (req, res) => {
-  const id = req.params.id
+  const id = req.query.id
   try {
     const post = await prisma.post.findUnique({
       where: { id },
       include: {
         postDetail: true,
-        // user info
         user: {
           select: {
             username: true,
@@ -43,12 +41,27 @@ export const getPost = async (req, res) => {
         },
       },
     })
-    res.status(200).json(post)
+
+    const userId = req.userId
+    if (userId) {
+      const saved = await prisma.savedPost.findUnique({
+        where: {
+          userId_postId: {
+            postId: id,
+            userId: userId,
+          },
+        },
+      })
+      return res.status(200).json({ ...post, isSaved: saved ? true : false })
+    }
+    
+    res.status(200).json({ ...post, isSaved: false})
   } catch (err) {
     console.log(err)
     res.status(500).json({ message: "Failed to get post" })
   }
 }
+
 
 // Add new Post
 export const addPost = async (req, res) => {
@@ -69,6 +82,45 @@ export const addPost = async (req, res) => {
   } catch (err) {
     console.log(err)
     res.status(500).json({ message: "Failed to create post" })
+  }
+}
+
+// Save Post
+export const savePost = async (req, res) => {
+  const postId = req.body.postId
+  const userId = req.userId
+  try {
+    const savedPost = await prisma.savedPost.findUnique({
+      where:{
+        userId_postId:{
+          userId,
+          postId,
+        },
+        
+      },
+    })
+
+    if(savedPost){
+      await prisma.savedPost.delete({
+        where:{
+          id:savedPost.id
+        },
+      })
+      res.status(200).json({message:"Post removed from saved List"})
+    }
+    else {
+      await prisma.savedPost.create({
+        data:{
+          userId,
+          postId,
+        },
+      })
+      res.status(200).json({message:"Post Saved Successfully"})
+    }
+   
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({ message: "Failed to update posts" })
   }
 }
 
