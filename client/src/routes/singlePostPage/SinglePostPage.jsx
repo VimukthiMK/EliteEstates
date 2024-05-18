@@ -4,17 +4,20 @@ import Map from "src/components/map/Map"
 import DOMPurify from "dompurify"
 import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "src/context/AuthContext"
-import { useLocation } from "react-router-dom"
+import { useLocation , useNavigate } from "react-router-dom"
 import queryString from 'query-string'
 import apiRequest from "src/lib/apiReq"
 
-import { FaPaw,FaTools,FaUtensils, FaBus,FaSchool,FaBath , FaBed ,FaMoneyCheckAlt, FaCompress ,FaCommentDots} from "react-icons/fa";
+import { FaPaw,FaTools,FaUtensils, FaBus,FaSchool,FaBath , FaBed ,FaMoneyCheckAlt, FaCompress ,FaCommentDots,FaBookmark} from "react-icons/fa"
 
 const SinglePostPage = () => {
-  const { currentUser } = useContext(AuthContext)
   const [post, setPost] = useState(null)
+  const [saved, setSaved] = useState(false)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+
+  const navigate = useNavigate()
+  const { currentUser } = useContext(AuthContext)
 
   const location = useLocation()
   const queryParams = queryString.parse(location.search)
@@ -23,8 +26,9 @@ const SinglePostPage = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await apiRequest.get("/posts/" + id)
+        const res = await apiRequest.get(`/posts/post?id=${id}`)
         setPost(res.data)
+        setSaved(res.data.isSaved)
       } catch (error) {
         setError("Failed to fetch post")
       } finally {
@@ -34,6 +38,19 @@ const SinglePostPage = () => {
 
     fetchPost()
   }, [id])
+  
+  const handleSave = async () => {
+    if (!currentUser) {
+      navigate("/login")
+    }
+    setSaved((prev) => !prev)
+    try {
+      await apiRequest.post("/posts/save", { postId: id })
+    } catch (err) {
+      console.log(err)
+      setSaved((prev) => !prev)
+    }
+  }
 
   if (loading) {
     return <div>Loading...</div>
@@ -163,7 +180,15 @@ const SinglePostPage = () => {
           </div>
           <div className="buttons">
             <button><FaCommentDots style={{ color: 'green', fontSize: '25px' }}/>Send a Message</button>
-            <button></button>
+            <button
+              onClick={handleSave}
+              style={{
+                backgroundColor: saved ? "#fece51" : "white",
+              }}
+            >
+              <FaBookmark style={{ color: 'green', fontSize: '25px' }}/>
+              {saved ? "Place Saved" : "Save the Place"}
+            </button>
           </div>
         </div>
       </div>
