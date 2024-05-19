@@ -44,12 +44,10 @@ export const getPost = async (req, res) => {
 
     const userId = req.userId
     if (userId) {
-      const saved = await prisma.savedPost.findUnique({
+      const saved = await prisma.savedPost.findFirst({
         where: {
-          userId_postId: {
             postId: id,
             userId: userId,
-          },
         },
       })
       return res.status(200).json({ ...post, isSaved: saved ? true : false })
@@ -90,12 +88,10 @@ export const savePost = async (req, res) => {
   const postId = req.body.postId
   const userId = req.userId
   try {
-    const savedPost = await prisma.savedPost.findUnique({
+    const savedPost = await prisma.savedPost.findFirst({
       where:{
-        userId_postId:{
           userId,
           postId,
-        },
         
       },
     })
