@@ -82,10 +82,64 @@ export const deleteUser = async (req, res) => {
   }
 
   try {
-    await prisma.user.delete({
-      where: { id },
+    // Start a transaction
+    await prisma.$transaction(async (prisma) => {
+      // Delete Messages associated with the user's chats
+      await prisma.message.deleteMany({
+        where: {
+          chat: {
+            userIDs: {
+              has: userId
+            }
+          }
+        }
+      })
+
+      // Delete SavedPosts of the user
+      await prisma.savedPost.deleteMany({
+        where: {
+          userId: userId
+        }
+      })
+
+      // Delete Posts and PostDetails created by the user
+      const userPosts = await prisma.post.findMany({
+        where: {
+          userId: userId
+        }
+      })
+
+      for (const post of userPosts) {
+        await prisma.postDetail.deleteMany({
+          where: {
+            postId: post.id
+          }
+        })
+      }
+
+      await prisma.post.deleteMany({
+        where: {
+          userId: userId
+        }
+      })
+
+      // Delete Chats where the user is a participant
+      await prisma.chat.deleteMany({
+        where: {
+          userIDs: {
+            has: userId
+          }
+        }
+      })
+
+      // Delete the User
+      await prisma.user.delete({
+        where: {
+          id: userId
+        }
+      })
     })
-    res.status(200).json({ message: "User deleted" })
+    res.status(200).json({message: "User deleted Successfully"})
   } catch (err) {
     res.status(500).json({ message: "Failed to delete users!" })
   }
