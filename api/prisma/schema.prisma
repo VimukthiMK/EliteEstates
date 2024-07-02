@@ -22,7 +22,8 @@ model User {
   createdAt  DateTime    @default(now())
   posts      Post[]
   SavedPost SavedPost[]
-
+  chats      Chat[]      @relation(fields: [chatIDs], references: [id])
+  chatIDs   String[]  @db.ObjectId
 }
 
 model Post {
@@ -80,3 +81,13 @@ model SavedPost {
 
   @@index([userId, postId], name: "user_post_index") 
 }
+model Chat {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  users     User[]    @relation(fields: [userIDs], references: [id])
+  userIDs   String[]  @db.ObjectId
+  createdAt DateTime  @default(now())
+  seenBy    String[]  @db.ObjectId
+  messages  Message[]
+  lastMessage String?
+}
+
