@@ -1,5 +1,6 @@
 import { useState, useContext } from "react"
 import { AuthContext } from "src/context/AuthContext"
+import { NotificationContext } from "src/context/NotificationContext"
 import { Link } from "react-router-dom"
 import "src/components/navbar/navbar.scss"
 
@@ -10,6 +11,9 @@ import NoAvatar from "src/assets/icon/no-avatar.svg"
 const Navbar = () => {
   const [open, setOpen] = useState(false)
   const { currentUser } = useContext(AuthContext)
+  const { fetchNotifications, number } = useContext(NotificationContext)
+
+  if (currentUser) fetchNotifications()
 
   return (
     <nav>
@@ -28,6 +32,7 @@ const Navbar = () => {
             <img src={currentUser.avatar || NoAvatar} alt="" />
             <span>{currentUser.username}</span>
             <Link to="/profile" className="profile">
+            {number > 0 && <div className="notification">{number}</div>}
               <span>Profile</span>
             </Link>
           </div>

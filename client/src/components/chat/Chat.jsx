@@ -3,6 +3,7 @@ import { useContext, useEffect, useRef, useState } from "react"
 import "./chat.scss"
 import { AuthContext } from "src/context/AuthContext"
 import { SocketContext } from "src/context/SocketContext"
+import { NotificationContext } from "src/context/NotificationContext"
 import apiRequest from "src/lib/apiReq"
 
 import { format } from "timeago.js"
@@ -14,6 +15,7 @@ const Chat = () => {
   const { currentUser } = useContext(AuthContext)
   const [chats, setChats] = useState(null)
   const { socket } = useContext(SocketContext)
+  const { decrease } = useContext(NotificationContext)
 
   const messageEndRef = useRef()
 
@@ -34,6 +36,9 @@ const Chat = () => {
   const handleOpenChat = async (id, receiver) => {
     try {
       const res = await apiRequest("/chats/" + id)
+      if (!res.data.seenBy.includes(currentUser.id)) {
+        decrease()
+      }
       setChat({ ...res.data, receiver })
     } catch (err) {
       console.log(err)
