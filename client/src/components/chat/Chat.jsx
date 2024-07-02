@@ -5,7 +5,7 @@ import apiRequest from "src/lib/apiReq"
 
 import { format } from "timeago.js"
 import NoAvatar from "src/assets/icon/no-avatar.svg"
-import { FaTimes} from "react-icons/fa";
+import { FaTimes} from "react-icons/fa"
 
 const Chat = () => {
   const [chat, setChat] = useState(null)
@@ -33,6 +33,23 @@ const Chat = () => {
     try {
       const res = await apiRequest("/chats/" + id)
       setChat({ ...res.data, receiver })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  // Send Message
+  const handleMessageSend = async (e) => {
+    e.preventDefault()
+
+    const formData = new FormData(e.target)
+    const text = formData.get("text")
+
+    if (!text) return
+    try {
+      const res = await apiRequest.post("/messages/" + chat.id, { text })
+      setChat((prev) => ({ ...prev, messages: [...prev.messages, res.data] }))
+      e.target.reset()
     } catch (err) {
       console.log(err)
     }
@@ -95,7 +112,7 @@ const Chat = () => {
             ))}
             <div ref={messageEndRef}></div>
           </div>
-          <form className="bottom">
+          <form className="bottom" onSubmit={handleMessageSend}>
             <textarea name="text"></textarea>
             <button>Send</button>
           </form>
