@@ -1,11 +1,12 @@
 import { Link, useNavigate } from "react-router-dom"
 import apiRequest from 'src/lib/apiReq'
-import { useContext,Suspense, useEffect, useState } from "react"
+import { useContext, Suspense, useEffect, useState } from "react"
 import { AuthContext } from "src/context/AuthContext"
 import List from 'src/components/list/List'
 
 import "src/routes/profilePage/profilePage.scss"
 import NoAvatar from "src/assets/icon/no-avatar.svg"
+import Chat from "src/components/chat/Chat"
 
 function ProfilePage() {
     const { updateUser, currentUser } = useContext(AuthContext)
@@ -16,19 +17,18 @@ function ProfilePage() {
 
     //Fetch user Posts and Saved Posts
     useEffect(() => {
-        const fetchUserPost = async () => {
-          try {
+        fetchUserPost()
+    }, [currentUser])
+
+    const fetchUserPost = async () => {
+        try {
             const res = await apiRequest.get('/users/profilePosts')
             setUserPosts(res.data.userPosts)
             setSavedPosts(res.data.savedPosts)
-          } catch (error) {
+        } catch (error) {
             console.log(error)
-          }
         }
-    
-        fetchUserPost()
-      }, [currentUser])
-
+    }
     // Logout
     const handleLogout = async () => {
         try {
@@ -74,7 +74,7 @@ function ProfilePage() {
                         </Link>
                     </div>
                     <Suspense fallback={<p>Loading...</p>}>
-                        <List posts = {userPosts}/>
+                        <List posts={userPosts} />
                     </Suspense>
 
                     {/* Saved posts - User */}
@@ -82,7 +82,15 @@ function ProfilePage() {
                         <h1>Saved List</h1>
                     </div>
                     <Suspense fallback={<p>Loading...</p>}>
-                        <List posts = {savedPosts}/>
+                        <List posts={savedPosts} />
+                    </Suspense>
+                </div>
+            </div>
+            <div className="chatContainer">
+                {/* Chat */}
+                <div className="wrapper">
+                    <Suspense fallback={<p>Loading...</p>}>
+                        <Chat />
                     </Suspense>
                 </div>
             </div>
