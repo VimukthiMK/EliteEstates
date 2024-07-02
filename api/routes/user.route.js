@@ -4,7 +4,8 @@ import {
   getUser,
   getUsers,
   updateUser,
-  profilePosts
+  profilePosts,
+  getNotificationNumber
 } from "../controllers/user.controller.js"
 import {verifyToken} from "../middleware/auth.middleware.js"
 
@@ -15,5 +16,6 @@ router.get("/search/:id", verifyToken, getUser)
 router.get("/profilePosts", verifyToken, profilePosts)
 router.put("/:id", verifyToken, updateUser)
 router.delete("/:id", verifyToken, deleteUser)
+router.get("/notification", verifyToken, getNotificationNumber)
 
 export default router
